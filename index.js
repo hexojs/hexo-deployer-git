@@ -1,0 +1,1 @@
+hexo.extend.deployer.register('git', require('./lib/deployer'));

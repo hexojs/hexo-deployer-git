@@ -33,5 +33,12 @@
     "jshint-stylish": "^1.0.0",
     "mocha": "^2.0.1",
     "rimraf": "^2.2.8"
+  },
+  "dependencies": {
+    "bluebird": "^2.6.2",
+    "chalk": "^0.5.1",
+    "hexo-fs": "0.0.8",
+    "moment": "^2.8.4",
+    "swig": "^1.4.2"
   }
 }
