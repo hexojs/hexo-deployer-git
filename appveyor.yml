@@ -4,6 +4,8 @@
 # Fix line endings in Windows. (runs before repo cloning)
 init:
   - git config --global core.autocrlf input
+  - git config --global user.email "test@hexo.io"
+  - git config --global user.name "John Doe"
 
 # Test against these versions of Node.js.
 environment:
