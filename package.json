@@ -35,9 +35,9 @@
     "rimraf": "^2.2.8"
   },
   "dependencies": {
-    "bluebird": "^2.6.2",
     "chalk": "^0.5.1",
-    "hexo-fs": "0.0.8",
+    "hexo-fs": "^0.1.0",
+    "hexo-util": "^0.1.0",
     "moment": "^2.8.4",
     "swig": "^1.4.2"
   }

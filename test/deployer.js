@@ -1,8 +1,8 @@
 var should = require('chai').should();
 var pathFn = require('path');
-var Promise = require('bluebird');
-var spawn = require('../lib/spawn');
+var util = require('hexo-util');
 var fs = require('hexo-fs');
+var spawn = util.spawn;
 
 describe('deployer', function(){
   var baseDir = pathFn.join(__dirname, 'deployer_test');
@@ -36,10 +36,9 @@ describe('deployer', function(){
   });
 
   afterEach(function(){
-    return Promise.all([
-      fs.rmdir(fakeRemote),
-      fs.rmdir(validateDir)
-    ]);
+    return fs.rmdir(fakeRemote).then(function(){
+      return fs.rmdir(validateDir);
+    });
   });
 
   function validate(branch){
@@ -61,7 +60,8 @@ describe('deployer', function(){
 
   it('default', function(){
     return deployer({
-      repo: fakeRemote
+      repo: fakeRemote,
+      silent: true
     }).then(function(){
       return validate();
     });
@@ -70,7 +70,8 @@ describe('deployer', function(){
   it('custom branch', function(){
     return deployer({
       repo: fakeRemote,
-      branch: 'custom'
+      branch: 'custom',
+      silent: true
     }).then(function(){
       return validate('custom');
     });
@@ -79,7 +80,8 @@ describe('deployer', function(){
   it.skip('custom message', function(){
     return deployer({
       repo: fakeRemote,
-      message: 'custom message'
+      message: 'custom message',
+      silent: true
     }).then(function(){
       return validate();
     }).then(function(){
