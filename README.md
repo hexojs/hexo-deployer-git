@@ -35,6 +35,14 @@ deploy:
 - **branch**: Git branch
 - **message**: Commit message. The default commit message is `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
 
+## Reset
+
+Remove `.deploy_git` folder.
+
+``` bash
+$ rm -rf .deploy_git
+```
+
 ## License
 
 MIT
