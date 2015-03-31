@@ -1,6 +1,6 @@
 {
   "name": "hexo-deployer-git",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Git deployer plugin of Hexo.",
   "main": "index",
   "scripts": {
