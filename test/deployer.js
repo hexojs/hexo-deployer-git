@@ -90,4 +90,15 @@ describe('deployer', function(){
       content.should.eql('custom message');
     });
   });
+
+  it('multi deployment', function(){
+    return deployer({
+      repo: {
+        github: fakeRemote,
+        gitcafe: fakeRemote
+      }
+    }).then(function(){
+      return validate();
+    })
+  });
 });
