@@ -32,7 +32,7 @@ deploy:
 ```
 
 - **repo**: Repository URL
-- **branch**: Git branch
+- **branch**: Git branch to deploy the static site to
 - **message**: Commit message. The default commit message is `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
 
 ## Reset
