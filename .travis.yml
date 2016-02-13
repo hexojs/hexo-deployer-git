@@ -1,15 +1,22 @@
 language: node_js
 
-node_js:
-  - "0.10"
-  - "0.11"
+sudo: false
 
-before_script:
-  - git config --global user.email "test@hexo.io"
-  - git config --global user.name "John Doe"
+cache:
+  apt: true
+  directories:
+    - node_modules
+
+node_js:
+  - "0.12"
+  - "4"
+  - "5"
 
 script:
-  - npm test
+  - npm run eslint
+  - npm run jscs
+  - npm run test-cov
 
 after_script:
+  - npm install coveralls
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

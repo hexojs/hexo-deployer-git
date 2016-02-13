@@ -1,9 +1,11 @@
-var should = require('chai').should();
+'use strict';
 
-describe('parse config', function(){
+var should = require('chai').should(); // eslint-disable-line
+
+describe('parse config', function() {
   var parseConfig = require('../lib/parse_config');
 
-  it('single repo, no branch', function(){
+  it('single repo, no branch', function() {
     var result = parseConfig({
       repo: 'https://example.com/path/to/repo.git'
     });
@@ -13,7 +15,7 @@ describe('parse config', function(){
     ]);
   });
 
-  it('single repo, with branch', function(){
+  it('single repo, with branch', function() {
     var result = parseConfig({
       repo: 'https://example.com/path/to/repo.git',
       branch: 'develop'
@@ -24,7 +26,7 @@ describe('parse config', function(){
     ]);
   });
 
-  it('single repo, branch after url', function(){
+  it('single repo, branch after url', function() {
     var result = parseConfig({
       repo: 'https://example.com/path/to/repo.git,develop'
     });
@@ -34,7 +36,7 @@ describe('parse config', function(){
     ]);
   });
 
-  it('multiple repo', function(){
+  it('multiple repo', function() {
     var result = parseConfig({
       repo: {
         foo: 'https://example.com/path/to/repo.git',
@@ -48,7 +50,7 @@ describe('parse config', function(){
     ]);
   });
 
-  it('github repo, master branch', function(){
+  it('github repo, master branch', function() {
     // https
     parseConfig({
       repo: 'https://github.com/hexojs/hexojs.github.io.git'
@@ -65,7 +67,7 @@ describe('parse config', function(){
     })[0].branch.should.eql('master');
   });
 
-  it('github repo, gh-pages branch', function(){
+  it('github repo, gh-pages branch', function() {
     // https
     parseConfig({
       repo: 'https://github.com/hexojs/hexo.git'
@@ -82,14 +84,14 @@ describe('parse config', function(){
     })[0].branch.should.eql('gh-pages');
   });
 
-  it('github repo, custom branch', function(){
+  it('github repo, custom branch', function() {
     parseConfig({
       repo: 'https://github.com/hexojs/hexojs.github.io.git',
       branch: 'site'
     })[0].branch.should.eql('site');
   });
 
-  it('gitcafe repo, gitcafe-pages branch', function(){
+  it('gitcafe repo, gitcafe-pages branch', function() {
     // https
     parseConfig({
       repo: 'https://gitcafe.com/hexojs/hexojs.git'
@@ -106,17 +108,17 @@ describe('parse config', function(){
     })[0].branch.should.eql('gitcafe-pages');
   });
 
-  it('gitcafe repo, custom branch', function(){
+  it('gitcafe repo, custom branch', function() {
     parseConfig({
       repo: 'https://gitcafe.com/hexojs/hexojs.git',
       branch: 'site'
     })[0].branch.should.eql('site');
   });
 
-  it('repo is required', function(){
+  it('repo is required', function() {
     try {
       parseConfig({});
-    } catch (err){
+    } catch (err) {
       err.should.have.property('message', 'repo is required!');
     }
   });

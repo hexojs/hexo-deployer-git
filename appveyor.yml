@@ -1,39 +1,33 @@
-# Based on https://github.com/gruntjs/grunt/blob/master/appveyor.yml
-# http://www.appveyor.com/docs/appveyor-yml
-
 # Fix line endings in Windows. (runs before repo cloning)
 init:
   - git config --global core.autocrlf input
-  - git config --global user.email "test@hexo.io"
-  - git config --global user.name "John Doe"
 
 # Test against these versions of Node.js.
 environment:
   matrix:
-    - nodejs_version: "0.10"
-    - nodejs_version: "0.11"
+    - nodejs_version: "0.12"
+    - nodejs_version: "4"
+    - nodejs_version: "5"
 
-# Allow failing jobs for bleeding-edge Node.js versions.
 matrix:
-  allow_failures:
-    - nodejs_version: "0.11"
+  fast_finish: true
 
 # Install scripts. (runs after repo cloning)
 install:
-  # Get the latest stable version of Node 0.STABLE.latest
   - ps: Install-Product node $env:nodejs_version
-  # Typical npm stuff.
+  - npm install -g npm
   - npm install
+
+cache:
+  - node_modules -> package.json
 
 # Post-install test scripts.
 test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
-  # We test multiple Windows shells because of prior stdout buffering issues
-  # filed against Grunt. https://github.com/joyent/node/issues/3584
-  - ps: "npm test # PowerShell" # Pass comment to PS for easier debugging
-  - cmd: npm test
+  # Run tests
+  - npm test
 
 # Don't actually build.
 build: off
