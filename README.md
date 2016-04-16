@@ -21,6 +21,8 @@ deploy:
   repo: <repository url>
   branch: [branch]
   message: [message]
+  name: [git user]
+  email: [git email]
   
 # or this:
 deploy:
@@ -34,6 +36,7 @@ deploy:
 - **repo**: Repository URL
 - **branch**: Git branch to deploy the static site to
 - **message**: Commit message. The default commit message is `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
+- **name** and **email**: User info for committing the change, overrides global config. This info is independent of git login.
 
 ## Reset
 
