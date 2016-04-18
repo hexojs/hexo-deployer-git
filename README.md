@@ -38,6 +38,14 @@ deploy:
 - **message**: Commit message. The default commit message is `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
 - **name** and **email**: User info for committing the change, overrides global config. This info is independent of git login.
 
+## How it works
+
+`hexo-deployer-git` works by generating the site in `.deploy_git` and *force pushing* to the repo(es) in config.  
+If `.deploy_git` does not exist, a repo will initialized (`git init`).  
+Otherwise the curent repo (with its commit history) will be used.  
+
+Users can to clone the deployed repo to `.deploy_git` to keep the commit history.
+
 ## Reset
 
 Remove `.deploy_git` folder.
