@@ -45,6 +45,9 @@ If `.deploy_git` does not exist, a repo will initialized (`git init`).
 Otherwise the curent repo (with its commit history) will be used.  
 
 Users can to clone the deployed repo to `.deploy_git` to keep the commit history.
+```
+git clone <gh-pages repo> .deploy_git
+```
 
 ## Reset
 
