@@ -41,7 +41,7 @@ deploy:
 - **branch**: Git branch to deploy the static site to
 - **message**: Commit message. The default commit message is `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
 - **name** and **email**: User info for committing the change, overrides global config. This info is independent of git login.
-- **extend_dirs**: Add some extensions directory to publish.
+- **extend_dirs**: Add some extensions directory to publish. e.g `demo`, `examples`
 
 ## How it works
 
