@@ -11,6 +11,7 @@ describe('deployer', function() {
   var publicDir = pathFn.join(baseDir, 'public');
   var fakeRemote = pathFn.join(baseDir, 'remote');
   var validateDir = pathFn.join(baseDir, 'validate');
+  var extendDir = pathFn.join(baseDir, 'extend');
 
   var ctx = {
     base_dir: baseDir,
@@ -90,6 +91,27 @@ describe('deployer', function() {
       return spawn('git', ['log', '-1', '--pretty=format:%s'], {cwd: validateDir});
     }).then(function(content) {
       content.should.eql('custom message');
+    });
+  });
+
+  it('extend dirs', function() {
+    var extendDirName = pathFn.basename(extendDir);
+
+    return fs.writeFile(pathFn.join(extendDir, 'ext.txt'), 'ext')
+    .then(function() {
+      return deployer({
+        repo: fakeRemote,
+        extend_dirs: extendDirName,
+        silent: true
+      });
+    }).then(function() {
+      return validate();
+    }).then(function() {
+      var extTxtFile = pathFn.join(validateDir, extendDirName, 'ext.txt');
+
+      return fs.readFile(extTxtFile);
+    }).then(function(content) {
+      content.should.eql('ext');
     });
   });
 
