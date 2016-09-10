@@ -125,4 +125,11 @@ describe('deployer', function() {
       return validate();
     });
   });
+
+  it('deployment with env', function() {
+    process.env.HEXO_DEPLOYER_REPO = fakeRemote;
+    return deployer({}).then(function() {
+      return validate();
+    });
+  });
 });
