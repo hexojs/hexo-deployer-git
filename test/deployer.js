@@ -11,6 +11,7 @@ describe('deployer', function() {
   var publicDir = pathFn.join(baseDir, 'public');
   var fakeRemote = pathFn.join(baseDir, 'remote');
   var validateDir = pathFn.join(baseDir, 'validate');
+  var validateDirDumplicate = pathFn.join(baseDir, 'validate_dumplicate');
   var extendDir = pathFn.join(baseDir, 'extend');
 
   var ctx = {
@@ -43,6 +44,26 @@ describe('deployer', function() {
       return fs.rmdir(validateDir);
     });
   });
+
+  function make_conflict() {
+    // clone the repo
+    return spawn('git', ['clone', fakeRemote, validateDirDumplicate]).then(function () {
+      // write the conflict file
+      return fs.writeFile(pathFn.join(validateDirDumplicate, "foo.txt"), "bar");
+    }).then(function () {
+      return spawn('git', ['add', '-A'], {
+        cwd: validateDirDumplicate
+      });
+    }).then(function () {
+      return spawn('git', ['commit', '-m', 'conflict'], {
+        cwd: validateDirDumplicate
+      });
+    }).then(function () {
+      return spawn('git', ['push', 'origin'], {
+        cwd: validateDirDumplicate
+      });
+    });
+  }
 
   function validate(branch) {
     branch = branch || 'master';
@@ -132,4 +153,15 @@ describe('deployer', function() {
       return validate();
     });
   });
+
+  it('auto fix the conflict', function () {
+    return make_conflict().then(function() {
+      return deployer({
+        repo: fakeRemote,
+        silent: true
+      }).then(function() {
+        return validate();
+      });
+    });
+  })
 });
