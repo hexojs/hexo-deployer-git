@@ -24,6 +24,7 @@ deploy:
   name: [git user]
   email: [git email]
   extend_dirs: [extend directory]
+  keep_hidden_file: true
 
 # or this:
 deploy:
@@ -42,6 +43,7 @@ deploy:
 - **message**: Commit message. The default commit message is `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
 - **name** and **email**: User info for committing the change, overrides global config. This info is independent of git login.
 - **extend_dirs**: Add some extensions directory to publish. e.g `demo`, `examples`
+- **keep_hidden_file**: Allow publishing hidden file (with leading .). Default to disallow
 
 ## How it works
 
