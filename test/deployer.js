@@ -73,7 +73,7 @@ describe('deployer', function() {
       .then(function(fileExists) {
         if (shouldExist) {
           fileExists.should.be.true;
-        } else { 
+        } else {
           fileExists.should.be.false;
         }
       });
