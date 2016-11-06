@@ -24,7 +24,10 @@ describe('deployer', function() {
   var deployer = require('../lib/deployer').bind(ctx);
 
   before(function() {
-    return fs.writeFile(pathFn.join(publicDir, 'foo.txt'), 'foo');
+    return fs.writeFile(pathFn.join(publicDir, 'foo.txt'), 'foo')
+      .then(function() {
+        return fs.writeFile(pathFn.join(publicDir, '.hidden'), 'bar');
+      });
   });
 
   beforeEach(function() {
@@ -39,26 +42,41 @@ describe('deployer', function() {
   });
 
   afterEach(function() {
-    return fs.rmdir(fakeRemote).then(function() {
-      return fs.rmdir(validateDir);
-    });
+    return fs.rmdir(fakeRemote)
+      .then(function() {
+        return fs.rmdir(pathFn.join(baseDir, '.deploy_git'));
+      })
+      .then(function() {
+        return fs.rmdir(validateDir);
+      });
   });
 
-  function validate(branch) {
+  function validate(branch, hiddenFileShouldExist) {
     branch = branch || 'master';
-
     // Clone the remote repo
     return spawn('git', ['clone', fakeRemote, validateDir, '--branch', branch]).then(function() {
       // Check the branch name
       return fs.readFile(pathFn.join(validateDir, '.git', 'HEAD'));
     }).then(function(content) {
       content.trim().should.eql('ref: refs/heads/' + branch);
-
       // Check files
       return fs.readFile(pathFn.join(validateDir, 'foo.txt'));
     }).then(function(content) {
       content.should.eql('foo');
+    }).then(function() {
+      return validateHiddenFile(hiddenFileShouldExist);
     });
+  }
+
+  function validateHiddenFile(shouldExist) {
+    return fs.exists(pathFn.join(validateDir, '.hidden'))
+      .then(function(fileExists) {
+        if (shouldExist) {
+          fileExists.should.be.true;
+        } else {
+          fileExists.should.be.false;
+        }
+      });
   }
 
   it('default', function() {
@@ -112,6 +130,16 @@ describe('deployer', function() {
       return fs.readFile(extTxtFile);
     }).then(function(content) {
       content.should.eql('ext');
+    });
+  });
+
+  it('hidden files', function() {
+    return deployer({
+      repo: fakeRemote,
+      silent: true,
+      keep_hidden_file: true
+    }).then(function() {
+      return validate('master', true);
     });
   });
 
