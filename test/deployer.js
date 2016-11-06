@@ -71,9 +71,9 @@ describe('deployer', function() {
   function validateHiddenFile(shouldExist) {
     return fs.exists(pathFn.join(validateDir, '.hidden'))
       .then(function(fileExists) {
-        if(shouldExist) {
+        if (shouldExist) {
           fileExists.should.be.true;
-        } else{
+        } else { 
           fileExists.should.be.false;
         }
       });
