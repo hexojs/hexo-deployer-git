@@ -45,13 +45,22 @@ deploy:
 
 ## How it works
 
-`hexo-deployer-git` works by generating the site in `.deploy_git` and *force pushing* to the repo(es) in config.
+`hexo-deployer-git` works by copying all files under `public` folder to `.deploy_git` and *force pushing* to the repo(es) in config.
 If `.deploy_git` does not exist, a repo will initialized (`git init`).
 Otherwise the curent repo (with its commit history) will be used.
 
 Users can clone the deployed repo to `.deploy_git` to keep the commit history.
 ```
 git clone <gh-pages repo> .deploy_git
+```
+
+Because it always copy all files from `public`, please make sure the files under `public` are going to deploy. To add/remove certain files into `public` folder, we could add following setting into `_config.yml`:
+
+```yml
+include:
+  - .nojekyll
+exclude:
+  - .DS_Store
 ```
 
 ## Reset
