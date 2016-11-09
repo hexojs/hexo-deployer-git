@@ -54,7 +54,7 @@ Users can clone the deployed repo to `.deploy_git` to keep the commit history.
 git clone <gh-pages repo> .deploy_git
 ```
 
-Because it always copy all files from `public`, please make sure the files under `public` are going to deploy. To add/remove certain files into `public` folder, we could add following setting into `_config.yml`:
+Because it always copy all files from `public`, please make sure the files under `public` are going to deploy. To add/remove certain files in `public` folder, we could add following settings into `_config.yml`:
 
 ```yml
 include:
