@@ -153,7 +153,7 @@ describe('deployer', function() {
   it('hidden extdir', function() {
     var extendDirName = pathFn.basename(extendDir);
 
-    return fs.writeFile(pathFn.join(extendDirName, '.hid'), 'hidden')
+    return fs.writeFile(pathFn.join(extendDir, '.hid'), 'hidden')
     .then(function() {
       return deployer({
         repo: fakeRemote,
