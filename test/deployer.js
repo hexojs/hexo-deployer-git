@@ -132,4 +132,23 @@ describe('deployer', function() {
       return validate();
     });
   });
+  
+  it('hidden file', function() {
+    return fs.writeFile(pathFn.join(publicDir, '.hid'), 'hidden')
+    .then(function() {
+      return deployer({
+        repo: fakeRemote,
+        ignore_hidden: false,
+        silent: true
+      });
+    }).then(function() {
+      return validate();
+    }).then(function() {
+      var hidTxtFile = pathFn.join(publicDir, '.hid');
+
+      return fs.readFile(hidTxtFile);
+    }).then(function(content) {
+      content.should.eql('hidden');
+    });
+  });
 });
