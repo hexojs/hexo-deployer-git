@@ -144,7 +144,7 @@ describe('deployer', function() {
     }).then(function() {
       return validate();
     }).then(function() {
-      return fs.readFile(pathFn.join(publicDir, '.hid'));
+      return fs.readFile(pathFn.join(validateDir, '.hid'));
     }).then(function(content) {
       content.should.eql('hidden');
     });
@@ -158,7 +158,7 @@ describe('deployer', function() {
       return deployer({
         repo: fakeRemote,
         extend_dirs: extendDirName,
-        ignore_hidden: {public: true, 'validate/extend': false},
+        ignore_hidden: {public: true, extend: false},
         silent: true
       });
     }).then(function() {
