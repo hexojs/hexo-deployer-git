@@ -24,6 +24,7 @@ deploy:
   name: [git user]
   email: [git email]
   extend_dirs: [extend directory]
+  ignore_hidden: false # default is true
 
 # or this:
 deploy:
@@ -35,6 +36,10 @@ deploy:
   extend_dirs:
     - [extend directory]
     - [another extend directory]
+  ignore_hidden:
+    public: false
+    [extend directory]: true
+    [another extend directory]: false
 ```
 
 - **repo**: Repository URL
@@ -42,6 +47,11 @@ deploy:
 - **message**: Commit message. The default commit message is `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
 - **name** and **email**: User info for committing the change, overrides global config. This info is independent of git login.
 - **extend_dirs**: Add some extensions directory to publish. e.g `demo`, `examples`
+- **ignore_hidden** (Boolean|Object): whether ignore hidden files to publish. the github requires the `.nojekyll` in root.
+  * Boolean: for all dirs.
+  * Object: for public dir and extend dir:
+    * `public`: the public dir defaults.
+    * [extend directory]
 
 ## How it works
 
