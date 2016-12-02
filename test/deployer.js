@@ -152,20 +152,20 @@ describe('deployer', function() {
 
   it('hidden extdir', function() {
     var extendDirName = pathFn.basename(extendDir);
-    
+
     return fs.writeFile(pathFn.join(extendDirName, '.hid'), 'hidden')
     .then(function() {
       return deployer({
         repo: fakeRemote,
         extend_dirs: extendDirName,
-        ignore_hidden: {public: true, extendDirName: false},
+        ignore_hidden: {public: true, extend: false},
         silent: true
       });
     }).then(function() {
       return validate();
     }).then(function() {
       var extHidFile = pathFn.join(validateDir, extendDirName, '.hid');
-      
+
       return fs.readFile(extHidFile);
     }).then(function(content) {
       content.should.eql('hidden');
