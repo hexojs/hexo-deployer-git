@@ -158,7 +158,7 @@ describe('deployer', function() {
       return deployer({
         repo: fakeRemote,
         extend_dirs: extendDirName,
-        ignore_hidden: {public: true, extend: false},
+        ignore_hidden: {public: true, 'validate/extend': false},
         silent: true
       });
     }).then(function() {
