@@ -30,6 +30,7 @@ deploy:
 deploy:
   type: git
   message: [message]
+  force_push: true
   repo:
     github: <repository url>,[branch]
     gitcafe: <repository url>,[branch]
@@ -45,6 +46,7 @@ deploy:
 - **repo**: Repository URL
 - **branch**: Git branch to deploy the static site to
 - **message**: Commit message. The default commit message is `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
+- **force_push**: Using force push to deploy, default is true. NOTE: you may encounter merge conflicts when set it to false.  
 - **name** and **email**: User info for committing the change, overrides global config. This info is independent of git login.
 - **extend_dirs**: Add some extensions directory to publish. e.g `demo`, `examples`
 - **ignore_hidden** (Boolean|Object): whether ignore hidden files to publish. the github requires the `.nojekyll` in root.
