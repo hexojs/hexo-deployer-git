@@ -21,6 +21,7 @@ deploy:
   repo: <repository url>
   branch: [branch]
   message: [message]
+  force_push: true
   name: [git user]
   email: [git email]
   extend_dirs: [extend directory]
