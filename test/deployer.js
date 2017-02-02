@@ -174,44 +174,42 @@ describe('deployer', function() {
 
   it('hidden files', function() {
       // with ignore_pattern
-      return fs.writeFile(pathFn.join(publicDir, '.hid'), 'hidden')
+      return fs.writeFile(pathFn.join(publicDir, 'hid'), 'hidden')
       .then(function() {
         return deployer({
           repo: fakeRemote,
-          ignore_pattern: '.',
+          ignore_pattern: 'hid',
           silent: true
         });
       }).then(function() {
         return validate();
       }).then(function() {
-          console.log(fs.exists(pathFn.join(validateDir, 'hid')));
         return fs.exists(pathFn.join(validateDir, 'hid'));
     }).then(function(status) {
-        console.log(status);
         status.should.eql(false);
       });
   });
 
-  // it('hidden extFiles', function () {
-  //     // with ignore_pattern
-  //     var extendDirName = pathFn.basename(extendDir);
-  //
-  //     return fs.writeFile(pathFn.join(extendDir, 'hid'), 'hidden')
-  //     .then(function() {
-  //       return deployer({
-  //         repo: fakeRemote,
-  //         extend_dirs: extendDirName,
-  //         ignore_pattern: {extend: '.'},
-  //         silent: true
-  //       });
-  //     }).then(function() {
-  //       return validate();
-  //     }).then(function() {
-  //       var extHidFile = pathFn.join(validateDir, extendDirName, 'hid');
-  //
-  //       return fs.readFile(extHidFile);
-  //     }).then(function(content) {
-  //       content.should.eql('hidden');
-  //     });
-  // });
+  it('hidden extFiles', function () {
+      // with ignore_pattern
+      var extendDirName = pathFn.basename(extendDir);
+
+      return fs.writeFile(pathFn.join(extendDir, 'hid'), 'hidden')
+      .then(function() {
+        return deployer({
+          repo: fakeRemote,
+          extend_dirs: extendDirName,
+          ignore_pattern: {extend: '.'},
+          silent: true
+        });
+      }).then(function() {
+        return validate();
+      }).then(function() {
+        var extHidFile = pathFn.join(validateDir, extendDirName, 'hid');
+
+        return fs.exists(extHidFile);
+      }).then(function(status) {
+        status.should.eql(false);
+      });
+  });
 });
