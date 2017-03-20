@@ -32,7 +32,7 @@ deploy:
   message: [message]
   repo:
     github: <repository url>,[branch]
-    gitcafe: <repository url>,[branch]
+    coding: <repository url>,[branch]
   extend_dirs:
     - [extend directory]
     - [another extend directory]
