@@ -91,26 +91,26 @@ describe('parse config', function() {
     })[0].branch.should.eql('site');
   });
 
-  it('gitcafe repo, gitcafe-pages branch', function() {
+  it('coding repo, coding-pages branch', function() {
     // https
     parseConfig({
-      repo: 'https://gitcafe.com/hexojs/hexojs.git'
-    })[0].branch.should.eql('gitcafe-pages');
+      repo: 'https://coding.net/hexojs/hexojs.git'
+    })[0].branch.should.eql('coding-pages');
 
     // git
     parseConfig({
-      repo: 'git://gitcafe.com/hexojs/hexojs.git'
-    })[0].branch.should.eql('gitcafe-pages');
+      repo: 'git://coding.net/hexojs/hexojs.git'
+    })[0].branch.should.eql('coding-pages');
 
     // ssh
     parseConfig({
-      repo: 'git@gitcafe.com/hexojs/hexojs.git'
-    })[0].branch.should.eql('gitcafe-pages');
+      repo: 'git@coding.net/hexojs/hexojs.git'
+    })[0].branch.should.eql('coding-pages');
   });
 
-  it('gitcafe repo, custom branch', function() {
+  it('coding, custom branch', function() {
     parseConfig({
-      repo: 'https://gitcafe.com/hexojs/hexojs.git',
+      repo: 'https://coding.net/hexojs/hexojs.git',
       branch: 'site'
     })[0].branch.should.eql('site');
   });
