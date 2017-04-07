@@ -7,7 +7,8 @@
     "eslint": "eslint .",
     "jscs": "jscs .",
     "test": "mocha test/index.js",
-    "test-cov": "istanbul cover --print both _mocha -- test/index.js"
+    "test-cov": "istanbul cover --print both _mocha -- test/index.js",
+    "postinstall": "./node_modules/.bin/opencollective-postinstall || exit 0"
   },
   "directories": {
     "lib": "./lib"
@@ -29,7 +30,8 @@
     "istanbul": "^0.4.3",
     "jscs": "^3.0.4",
     "jscs-preset-hexo": "^1.0.1",
-    "mocha": "^2.5.3"
+    "mocha": "^2.5.3",
+    "opencollective-postinstall": "^1.0.15"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
@@ -38,5 +40,10 @@
     "hexo-util": "^0.6.0",
     "moment": "^2.18.0",
     "swig": "^1.4.2"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/hexo-deployer-git",
+    "logo": "https://opencollective.com/hexo-deployer-git/logo.txt?variant=bits&reverse=true"
   }
 }
