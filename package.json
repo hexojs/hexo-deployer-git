@@ -1,6 +1,6 @@
 {
   "name": "hexo-deployer-git",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Git deployer plugin of Hexo.",
   "main": "index",
   "scripts": {
@@ -21,6 +21,9 @@
     "deployer"
   ],
   "author": "Tommy Chen <tommy351@gmail.com> (http://zespia.tw)",
+  "maintainers": [
+    "Abner Chou <hi@abnerchou.me> (http://abnerchou.me)"
+    ],
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.5.0",
