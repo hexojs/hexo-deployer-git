@@ -41,6 +41,6 @@
     "hexo-util": "^0.6.0",
     "moment": "^2.18.0",
     "swig": "^1.4.2",
-    "babel-eslint": "^7.2.1",
+    "babel-eslint": "^7.2.1"
   }
 }
