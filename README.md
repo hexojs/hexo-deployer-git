@@ -10,6 +10,11 @@ Git deployer plugin for [Hexo].
 $ npm install hexo-deployer-git --save
 ```
 
+If you want to use the latest features of hexo-deployer-git, you may install it from github,
+``` bash
+$ npm install git+git@github.com:hexojs/hexo-deployer-git.git --save
+```
+
 ## Options
 
 You can configure this plugin in `_config.yml`.
@@ -25,6 +30,7 @@ deploy:
   email: [git email]
   extend_dirs: [extend directory]
   ignore_hidden: false # default is true
+  ignore_pattern: regexp  # whatever file that matches the regexp will be ignored when deploying
 
 # or this:
 deploy:
@@ -40,6 +46,8 @@ deploy:
     public: false
     [extend directory]: true
     [another extend directory]: false
+  ignore_pattern:
+    [folder]: regexp  # or you could specify the ignore_pattern under a certain directory
 ```
 
 - **repo**: Repository URL
@@ -52,6 +60,23 @@ deploy:
   * Object: for public dir and extend dir:
     * `public`: the public dir defaults.
     * [extend directory]
+- **ignore_pattern** (Object|RegExp): Choose the ignore pattern when deploying
+  * RegExp: for all dirs.
+  * Object: specify the ignore pattern under certain directory. For example, if you want to push the source files and generated files at the same time to two different branches. The option should be like
+  ```yaml
+  # _config.yaml
+  deploy:
+    - type: git
+      repo: git@github.com:<username>/<username>.github.io.git
+      branch: master
+    - type: git
+      repo: git@github.com:<username>/<username>.github.io.git
+      branch: src
+      extend_dirs: /
+      ignore_hidden: false
+      ignore_pattern:
+          public: .
+  ```
 
 ## How it works
 
