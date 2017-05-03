@@ -89,6 +89,8 @@ Users can clone the deployed repo to `.deploy_git` to keep the commit history.
 git clone <gh-pages repo> .deploy_git
 ```
 
+**Note:** When setting up your hexo-based site, it is a good idea to keep the source and deployment branches separate. For example, if you are using Github Pages to create a site in a repository named with your username (_username.github.io_), create your hexo site a branch named `source`. When it is time to deploy your site, set the **repo** value in the `_config.yml` file to the current repository with **branch** set to `master`. Github Pages will then render your site from the `master` branch and you will have your site's full source available on the `source` branch.
+
 ## Reset
 
 Remove `.deploy_git` folder.
