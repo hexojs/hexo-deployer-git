@@ -266,7 +266,7 @@ describe('deployer', function() {
       }).then(function() {
         return spawn('git', ['log', '--skip', '1', '--pretty=format:%s'], {cwd: validateDir})
       }).then(function(logs) {
-        logs.should.eql('Test Commit');
+        logs.should.match(/Test Commit$/);
       });
     });
   });
