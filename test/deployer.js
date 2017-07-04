@@ -252,7 +252,7 @@ describe('deployer', function() {
       .then(function() {
         return spawn('git', ['commit', '--allow-empty', '-m', 'Test Commit'], {cwd: otherRemote}).catch(function(e) { console.log(e); })
       }).then(function() {
-        return spawn('git', ['push', 'origin'], {cwd: otherRemote})
+        return spawn('git', ['push', 'origin', 'master'], {cwd: otherRemote})
       });
     }
 
