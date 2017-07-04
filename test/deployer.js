@@ -244,4 +244,30 @@ describe('deployer', function() {
       });
     });
   });
+
+  it('keep history', function() {
+    var otherRemote = pathFn.join(baseDir, 'other-remote');
+    function addCommit() {
+      return spawn('git', ['clone', fakeRemote, otherRemote], {cwd: baseDir})
+      .then(function() {
+        return spawn('git', ['commit', '--allow-empty', '-m', 'Test Commit'], {cwd: otherRemote}).catch(function(e) { console.log(e); })
+      }).then(function() {
+        return spawn('git', ['push', 'origin'], {cwd: otherRemote})
+      });
+    }
+
+    return addCommit().then(function() {
+      return deployer({
+        repo: fakeRemote,
+        silent: true,
+        keep_history: true
+      }).then(function() {
+        return validate();
+      }).then(function() {
+        return spawn('git', ['log', '--skip', '1', '--pretty=format:%s'], {cwd: validateDir})
+      }).then(function(logs) {
+        logs.should.eql('Test Commit');
+      });
+    });
+  });
 });
