@@ -250,9 +250,11 @@ describe('deployer', function() {
     function addCommit() {
       return spawn('git', ['clone', fakeRemote, otherRemote], {cwd: baseDir})
       .then(function() {
-        return spawn('git', ['commit', '--allow-empty', '-m', 'Test Commit'], {cwd: otherRemote}).catch(function(e) { console.log(e); })
+        return spawn('git', ['commit', '--allow-empty', '-m', 'Test Commit'], {cwd: otherRemote}).catch(function(e) {
+          console.log(e);
+        });
       }).then(function() {
-        return spawn('git', ['push', fakeRemote, 'HEAD:master'], {cwd: otherRemote})
+        return spawn('git', ['push', fakeRemote, 'HEAD:master'], {cwd: otherRemote});
       });
     }
 
@@ -264,7 +266,7 @@ describe('deployer', function() {
       }).then(function() {
         return validate();
       }).then(function() {
-        return spawn('git', ['log', '--skip', '1', '--pretty=format:%s'], {cwd: validateDir})
+        return spawn('git', ['log', '--skip', '1', '--pretty=format:%s'], {cwd: validateDir});
       }).then(function(logs) {
         logs.should.match(/Test Commit$/);
       });
