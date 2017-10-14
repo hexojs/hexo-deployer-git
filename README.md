@@ -10,9 +10,16 @@ Git deployer plugin for [Hexo].
 $ npm install hexo-deployer-git --save
 ```
 
-If you want to use the latest features of hexo-deployer-git, you may install it from github,
+If you want to use the latest features of hexo-deployer-git, you may install it from github:
+
+* for npm version under 4
 ``` bash
 $ npm install git+git@github.com:hexojs/hexo-deployer-git.git --save
+```
+
+* for npm version 5
+```bash
+$ npm install git+ssh://git@github.com:hexojs/hexo-deployer-git.git --save
 ```
 
 ## Options
