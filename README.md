@@ -4,6 +4,9 @@
 
 Git deployer plugin for [Hexo].
 
+## Notice: Fatal HttpRequestException Error on pushing to GitHub?
+Update [Git for Windows](https://github.com/git-for-windows/git/releases) to the latest version. ([Details](https://github.com/Microsoft/Git-Credential-Manager-for-Windows#notice-experiencing-github-pushfetch-problems))
+
 ## Installation
 
 ``` bash
