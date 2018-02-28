@@ -38,6 +38,7 @@ deploy:
   message: [message]
   name: [git user]
   email: [git email]
+  public_dir: [public directory]
   extend_dirs: [extend directory]
   ignore_hidden: false # default is true
   ignore_pattern: regexp  # whatever file that matches the regexp will be ignored when deploying
@@ -49,6 +50,7 @@ deploy:
   repo:
     github: <repository url>,[branch]
     coding: <repository url>,[branch]
+  public_dir: [public directory]
   extend_dirs:
     - [extend directory]
     - [another extend directory]
@@ -82,6 +84,7 @@ deploy:
     - type: git
       repo: git@github.com:<username>/<username>.github.io.git
       branch: src
+      public_dir: public
       extend_dirs: /
       ignore_hidden: false
       ignore_pattern:
