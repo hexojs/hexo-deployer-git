@@ -9,7 +9,8 @@ cache:
 
 node_js:
   - "6"
-  - "7"
+  - "8"
+  - "node"
 
 before_script:
   - git config --global user.email "you@example.com"
