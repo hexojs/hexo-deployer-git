@@ -35,7 +35,7 @@
     "babel-eslint": "^7.2.1",
     "bluebird": "^3.5.0",
     "chalk": "^2.4.1",
-    "hexo-fs": "^0.2.0",
+    "hexo-fs": "^1.0.0",
     "hexo-util": "^0.6.0",
     "moment": "^2.18.0",
     "swig-templates": "^2.0.2"
