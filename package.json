@@ -34,7 +34,7 @@
     "eslint": "^5.6.1",
     "eslint-config-hexo": "^3.0.0",
     "istanbul": "^0.4.3",
-    "mocha": "^5.2.0"
+    "mocha": "^6.0.1"
   },
   "dependencies": {
     "bluebird": "^3.5.0",
