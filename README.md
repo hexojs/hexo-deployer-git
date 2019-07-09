@@ -32,6 +32,7 @@ deploy:
   extend_dirs: [extend directory]
   ignore_hidden: false # default is true
   ignore_pattern: regexp  # whatever file that matches the regexp will be ignored when deploying
+  token: $ENV_TOKEN # read your access token from environment varable with a value starting with `$`, or hard-coded plain text
 
 # or this:
 deploy:
