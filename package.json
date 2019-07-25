@@ -2,7 +2,7 @@
   "name": "hexo-deployer-git",
   "version": "1.0.0",
   "description": "Git deployer plugin of Hexo.",
-  "main": "index",
+  "main": "index.js",
   "scripts": {
     "eslint": "eslint .",
     "test": "mocha test/index.js",
