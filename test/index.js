@@ -1,6 +1,6 @@
 'use strict';
 
-describe('Git deployer', function() {
+describe('Git deployer', () => {
   require('./deployer');
   require('./parse_config');
 });

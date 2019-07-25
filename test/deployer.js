@@ -1,46 +1,46 @@
 'use strict';
 
-var should = require('chai').should(); // eslint-disable-line
-var pathFn = require('path');
-var util = require('hexo-util');
-var fs = require('hexo-fs');
-var Promise = require('bluebird');
-var spawn = util.spawn;
+const should = require('chai').should(); // eslint-disable-line
+const pathFn = require('path');
+const util = require('hexo-util');
+const fs = require('hexo-fs');
+const Promise = require('bluebird');
+const spawn = util.spawn;
 
-describe('deployer', function() {
-  var baseDir = pathFn.join(__dirname, 'deployer_test');
-  var publicDir = pathFn.join(baseDir, 'public');
-  var fakeRemote = pathFn.join(baseDir, 'remote');
-  var validateDir = pathFn.join(baseDir, 'validate');
-  var extendDir = pathFn.join(baseDir, 'extend');
+describe('deployer', () => {
+  const baseDir = pathFn.join(__dirname, 'deployer_test');
+  const publicDir = pathFn.join(baseDir, 'public');
+  const fakeRemote = pathFn.join(baseDir, 'remote');
+  const validateDir = pathFn.join(baseDir, 'validate');
+  const extendDir = pathFn.join(baseDir, 'extend');
 
-  var ctx = {
+  const ctx = {
     base_dir: baseDir,
     public_dir: publicDir,
     log: {
-      info: function() {}
+      info: () => {}
     }
   };
 
-  var deployer = require('../lib/deployer').bind(ctx);
+  const deployer = require('../lib/deployer').bind(ctx);
 
-  before(function() {
+  before(() => {
     return fs.writeFile(pathFn.join(publicDir, 'foo.txt'), 'foo');
   });
 
-  beforeEach(function() {
+  beforeEach(() => {
     // Create a bare repo as a fake remote repo
-    return fs.mkdirs(fakeRemote).then(function() {
+    return fs.mkdirs(fakeRemote).then(() => {
       return spawn('git', ['init', '--bare', fakeRemote]);
     });
   });
 
-  after(function() {
+  after(() => {
     return fs.rmdir(baseDir);
   });
 
-  afterEach(function() {
-    return fs.rmdir(fakeRemote).then(function() {
+  afterEach(() => {
+    return fs.rmdir(fakeRemote).then(() => {
       return fs.rmdir(validateDir);
     });
   });
@@ -49,197 +49,197 @@ describe('deployer', function() {
     branch = branch || 'master';
 
     // Clone the remote repo
-    return spawn('git', ['clone', fakeRemote, validateDir, '--branch', branch]).then(function() {
+    return spawn('git', ['clone', fakeRemote, validateDir, '--branch', branch]).then(() => {
       // Check the branch name
       return fs.readFile(pathFn.join(validateDir, '.git', 'HEAD'));
-    }).then(function(content) {
+    }).then(content => {
       content.trim().should.eql('ref: refs/heads/' + branch);
 
       // Check files
       return fs.readFile(pathFn.join(validateDir, 'foo.txt'));
-    }).then(function(content) {
+    }).then(content => {
       content.should.eql('foo');
     });
   }
 
-  it('default', function() {
+  it('default', () => {
     return deployer({
       repo: fakeRemote,
       silent: true
-    }).then(function() {
+    }).then(() => {
       return validate();
     });
   });
 
-  it('custom branch', function() {
+  it('custom branch', () => {
     return deployer({
       repo: fakeRemote,
       branch: 'custom',
       silent: true
-    }).then(function() {
+    }).then(() => {
       return validate('custom');
     });
   });
 
-  it.skip('custom message', function() {
+  it.skip('custom message', () => {
     return deployer({
       repo: fakeRemote,
       message: 'custom message',
       silent: true
-    }).then(function() {
+    }).then(() => {
       return validate();
-    }).then(function() {
+    }).then(() => {
       return spawn('git', ['log', '-1', '--pretty=format:%s'], {cwd: validateDir});
-    }).then(function(content) {
+    }).then(content => {
       content.should.eql('custom message');
     });
   });
 
-  it('extend dirs', function() {
-    var extendDirName = pathFn.basename(extendDir);
+  it('extend dirs', () => {
+    const extendDirName = pathFn.basename(extendDir);
 
     return fs.writeFile(pathFn.join(extendDir, 'ext.txt'), 'ext')
-      .then(function() {
+      .then(() => {
         return deployer({
           repo: fakeRemote,
           extend_dirs: extendDirName,
           silent: true
         });
-      }).then(function() {
+      }).then(() => {
         return validate();
-      }).then(function() {
-        var extTxtFile = pathFn.join(validateDir, extendDirName, 'ext.txt');
+      }).then(() => {
+        const extTxtFile = pathFn.join(validateDir, extendDirName, 'ext.txt');
 
         return fs.readFile(extTxtFile);
-      }).then(function(content) {
+      }).then(content => {
         content.should.eql('ext');
       });
   });
 
-  it('multi deployment', function() {
+  it('multi deployment', () => {
     return deployer({
       repo: {
         github: fakeRemote,
         gitcafe: fakeRemote
       }
-    }).then(function() {
+    }).then(() => {
       return validate();
     });
   });
 
-  it('deployment with env', function() {
+  it('deployment with env', () => {
     process.env.HEXO_DEPLOYER_REPO = fakeRemote;
-    return deployer({}).then(function() {
+    return deployer({}).then(() => {
       return validate();
     });
   });
 
-  it('hidden file', function() {
+  it('hidden file', () => {
     return fs.writeFile(pathFn.join(publicDir, '.hid'), 'hidden')
-      .then(function() {
+      .then(() => {
         return deployer({
           repo: fakeRemote,
           ignore_hidden: false,
           silent: true
         });
-      }).then(function() {
+      }).then(() => {
         return validate();
-      }).then(function() {
+      }).then(() => {
         return fs.readFile(pathFn.join(validateDir, '.hid'));
-      }).then(function(content) {
+      }).then(content => {
         content.should.eql('hidden');
       });
   });
 
-  it('hidden extdir', function() {
-    var extendDirName = pathFn.basename(extendDir);
+  it('hidden extdir', () => {
+    const extendDirName = pathFn.basename(extendDir);
 
     return fs.writeFile(pathFn.join(extendDir, '.hid'), 'hidden')
-      .then(function() {
+      .then(() => {
         return deployer({
           repo: fakeRemote,
           extend_dirs: extendDirName,
           ignore_hidden: {public: true, extend: false},
           silent: true
         });
-      }).then(function() {
+      }).then(() => {
         return validate();
-      }).then(function() {
-        var extHidFile = pathFn.join(validateDir, extendDirName, '.hid');
+      }).then(() => {
+        const extHidFile = pathFn.join(validateDir, extendDirName, '.hid');
 
         return fs.readFile(extHidFile);
-      }).then(function(content) {
+      }).then(content => {
         content.should.eql('hidden');
       });
   });
 
-  it('hidden files', function() {
+  it('hidden files', () => {
     // with ignore_pattern
-    var extendDirName = pathFn.basename(extendDir);
+    const extendDirName = pathFn.basename(extendDir);
 
-    var pubFileHid = fs.writeFile(pathFn.join(publicDir, 'hid'), 'hidden');
-    var extFileHid = fs.writeFile(pathFn.join(extendDir, 'hid'), 'hidden');
-    var extFileShow = fs.writeFile(pathFn.join(extendDir, 'show'), 'show');
+    const pubFileHid = fs.writeFile(pathFn.join(publicDir, 'hid'), 'hidden');
+    const extFileHid = fs.writeFile(pathFn.join(extendDir, 'hid'), 'hidden');
+    const extFileShow = fs.writeFile(pathFn.join(extendDir, 'show'), 'show');
 
     return Promise.all([pubFileHid, extFileHid, extFileShow])
-      .then(function() {
+      .then(() => {
         return deployer({
           repo: fakeRemote,
           extend_dirs: extendDirName,
           ignore_pattern: 'hid',
           silent: true
         });
-      }).then(function() {
+      }).then(() => {
         return validate();
-      }).then(function() {
-        var isPubFileHidExisits = fs.exists(pathFn.join(validateDir, 'hid'));
-        var isExtFileHidExisits = fs.exists(pathFn.join(validateDir, extendDirName, 'hid'));
-        var isExtFileShowExisits = fs.exists(pathFn.join(validateDir, extendDirName, 'show'));
+      }).then(() => {
+        const isPubFileHidExisits = fs.exists(pathFn.join(validateDir, 'hid'));
+        const isExtFileHidExisits = fs.exists(pathFn.join(validateDir, extendDirName, 'hid'));
+        const isExtFileShowExisits = fs.exists(pathFn.join(validateDir, extendDirName, 'show'));
 
         return Promise.all([isPubFileHidExisits, isExtFileHidExisits, isExtFileShowExisits]);
-      }).then(function(statusLists) {
-        var pubFileHidStatus = statusLists[0];
-        var extFileHidStatus = statusLists[1];
-        var extFileShowStatus = statusLists[2];
+      }).then(statusLists => {
+        const pubFileHidStatus = statusLists[0];
+        const extFileHidStatus = statusLists[1];
+        const extFileShowStatus = statusLists[2];
 
         pubFileHidStatus.should.eql(false);
         extFileHidStatus.should.eql(false);
         extFileShowStatus.should.eql(true);
-      }).then(function() {
-        var extShowFile = pathFn.join(validateDir, extendDirName, 'show');
+      }).then(() => {
+        const extShowFile = pathFn.join(validateDir, extendDirName, 'show');
 
         return fs.readFile(extShowFile);
-      }).then(function(content) {
+      }).then(content => {
         content.should.eql('show');
       });
   });
 
-  it('hidden extFiles', function() {
+  it('hidden extFiles', () => {
     // with ignore_pattern
-    var extendDirName = pathFn.basename(extendDir);
+    const extendDirName = pathFn.basename(extendDir);
 
-    var extFileHid = fs.writeFile(pathFn.join(extendDir, 'hid'), 'hidden');
-    var extFile2Hid = fs.writeFile(pathFn.join(extendDir, 'hid2'), 'hidden');
-    var pubFileHid = fs.writeFile(pathFn.join(publicDir, 'hid'), 'hidden');
+    const extFileHid = fs.writeFile(pathFn.join(extendDir, 'hid'), 'hidden');
+    const extFile2Hid = fs.writeFile(pathFn.join(extendDir, 'hid2'), 'hidden');
+    const pubFileHid = fs.writeFile(pathFn.join(publicDir, 'hid'), 'hidden');
 
     return Promise.all([extFileHid, extFile2Hid, pubFileHid])
-      .then(function() {
+      .then(() => {
         return deployer({
           repo: fakeRemote,
           extend_dirs: extendDirName,
           ignore_pattern: {public: 'hid', extend: '.'},
           silent: true
         });
-      }).then(function() {
+      }).then(() => {
         return validate();
-      }).then(function() {
-        var isExtHidFileExists = fs.exists(pathFn.join(validateDir, extendDirName, 'hid'));
-        var isExtHidFile2Exists = fs.exists(pathFn.join(validateDir, extendDirName, 'hid2'));
-        var isPubHidFileExists = fs.exists(pathFn.join(validateDir, 'hid'));
+      }).then(() => {
+        const isExtHidFileExists = fs.exists(pathFn.join(validateDir, extendDirName, 'hid'));
+        const isExtHidFile2Exists = fs.exists(pathFn.join(validateDir, extendDirName, 'hid2'));
+        const isPubHidFileExists = fs.exists(pathFn.join(validateDir, 'hid'));
 
         return Promise.all([isExtHidFileExists, isExtHidFile2Exists, isPubHidFileExists]);
-      }).then(function(statusLists) {
-        statusLists.forEach(function(statusItem) {
+      }).then(statusLists => {
+        statusLists.forEach(statusItem => {
           statusItem.should.eql(false);
         });
       });
