@@ -43,5 +43,8 @@
     "hexo-util": "^0.6.0",
     "moment": "^2.18.0",
     "swig-templates": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=8.6.0"
   }
 }
