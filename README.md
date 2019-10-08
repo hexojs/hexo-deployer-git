@@ -32,15 +32,16 @@ deploy:
   extend_dirs: [extend directory]
   ignore_hidden: false # default is true
   ignore_pattern: regexp  # whatever file that matches the regexp will be ignored when deploying
-  token: $ENV_TOKEN # read your access token from environment varable with a value starting with `$`, or hard-coded plain text
-
 # or this:
 deploy:
   type: git
   message: [message]
   repo:
     github: <repository url>,[branch]
-    coding: <repository url>,[branch]
+    coding:
+      url: <repository url>
+      branch: [branch]
+      token: [$ENV_TOKEN] # read your access token from environment varable with a value starting with `$`, or hard-coded plain text
   extend_dirs:
     - [extend directory]
     - [another extend directory]
@@ -50,6 +51,13 @@ deploy:
     [another extend directory]: false
   ignore_pattern:
     [folder]: regexp  # or you could specify the ignore_pattern under a certain directory
+
+# keys inside repo do not matter, and can be omitted for single repo with token:
+deploy:
+  repo:
+    url: <repository url>
+    token: [$ENV_TOKEN]
+  # ...your other configs
 ```
 
 - **repo**: Repository URL

@@ -123,23 +123,50 @@ describe('parse config', function() {
     }
   });
 
+  it('Structured single repo setting', function() {
+    parseConfig({
+      repo: {
+        url: 'https://coding.net/hexojs/hexojs.git',
+        branch: 'site'
+      }
+    })[0].branch.should.eql('site');
+  });
+
+  it('Structured multiple repo settings', function() {
+    const result = parseConfig({
+      repo: {
+        coding: {
+          url: 'https://coding.net/hexojs/hexojs.git',
+          branch: 'site',
+          token: 'plain_token'
+        },
+        github: {
+          url: 'https://github.com/hexojs/hexojs.github.io.git'
+        }
+      }
+    });
+
+    result.should.eql([
+      {url: 'https://plain_token@coding.net/hexojs/hexojs.git', branch: 'site'},
+      {url: 'https://github.com/hexojs/hexojs.github.io.git', branch: 'master'}
+    ]);
+  });
+
   it('single repo with plain text token', function() {
     // http
     parseConfig({
-      repo: 'http://github.com/hexojs/hexojs.github.io.git',
-      token: 'plain_text_token'
+      repo: {
+        url: 'http://github.com/hexojs/hexojs.github.io.git',
+        token: 'plain_text_token'
+      }
     })[0].url.should.eql('http://plain_text_token@github.com/hexojs/hexojs.github.io.git');
-
-    // https
-    parseConfig({
-      repo: 'https://github.com/hexojs/hexojs.github.io.git',
-      token: 'plain_text_token'
-    })[0].url.should.eql('https://plain_text_token@github.com/hexojs/hexojs.github.io.git');
 
     // token config for git scheme should be ignored
     parseConfig({
-      repo: 'git://github.com/hexojs/hexojs.github.io.git',
-      token: 'plain_text_token'
+      repo: {
+        url: 'git://github.com/hexojs/hexojs.github.io.git',
+        token: 'plain_text_token'
+      }
     })[0].url.should.eql('git://github.com/hexojs/hexojs.github.io.git');
   });
 
@@ -148,20 +175,18 @@ describe('parse config', function() {
 
     // http
     parseConfig({
-      repo: 'http://github.com/hexojs/hexojs.github.io.git',
-      token: '$GIT_TOKEN'
+      repo: {
+        url: 'http://github.com/hexojs/hexojs.github.io.git',
+        token: '$GIT_TOKEN'
+      }
     })[0].url.should.eql('http://env_token@github.com/hexojs/hexojs.github.io.git');
-
-    // https
-    parseConfig({
-      repo: 'https://github.com/hexojs/hexojs.github.io.git',
-      token: '$GIT_TOKEN'
-    })[0].url.should.eql('https://env_token@github.com/hexojs/hexojs.github.io.git');
 
     // token config for git scheme should be ignored
     parseConfig({
-      repo: 'git://github.com/hexojs/hexojs.github.io.git',
-      token: '$GIT_TOKEN'
+      repo: {
+        url: 'git://github.com/hexojs/hexojs.github.io.git',
+        token: '$GIT_TOKEN'
+      }
     })[0].url.should.eql('git://github.com/hexojs/hexojs.github.io.git');
 
     delete process.env.GIT_TOKEN;
@@ -172,18 +197,10 @@ describe('parse config', function() {
     // http
     try {
       parseConfig({
-        repo: 'http://github.com/hexojs/hexojs.github.io.git',
-        token: '$GIT_TOKEN'
-      });
-    } catch (err) {
-      err.should.have.property('message', 'Fail to read environment varable: $GIT_TOKEN, check your config!');
-    }
-
-    // https
-    try {
-      parseConfig({
-        repo: 'https://github.com/hexojs/hexojs.github.io.git',
-        token: '$GIT_TOKEN'
+        repo: {
+          url: 'http://github.com/hexojs/hexojs.github.io.git',
+          token: '$GIT_TOKEN'
+        }
       });
     } catch (err) {
       err.should.have.property('message', 'Fail to read environment varable: $GIT_TOKEN, check your config!');
@@ -193,8 +210,10 @@ describe('parse config', function() {
   it('invalid url', function() {
     try {
       parseConfig({
-        repo: 'http:///hexojs/hexojs.github.io.git',
-        token: '$GIT_TOKEN'
+        repo: {
+          url: 'http:///hexojs/hexojs.github.io.git',
+          token: '$GIT_TOKEN'
+        }
       });
     } catch (err) {
       err.should.have.property('message', 'Fail to parse your repo url, check your config!');
