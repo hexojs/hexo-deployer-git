@@ -38,8 +38,9 @@ deploy:
   type: git
   message: [message]
   repo:
-    coding: <repository url>[,branch]
-    github:
+  # both formats are acceptable
+    [repo host name]: <repository url>[,branch]
+    [another repo]:
       url: <repository url>
       branch: [branch]
       token: [$ENV_TOKEN]
@@ -65,7 +66,7 @@ deploy:
   - **REPO_NAME**: Name for each of your repo setting. This layer can be omitted for single repo config.
     - **url**: Url of your repositury to pull from and push to.
     - **branch**: Optional git branch to deploy the static site to.
-    - **token**: Plain text personal access token to auth push action, or a value starting with `$` to read tovalueken from environment varable. [For details](#deploy-with-token)
+    - **token**: Optional plain-text personal access token to auth push action, or a string starting with `$` to read token from environment varable. [For details](#deploy-with-token).
 - **branch**: Git branch to deploy the static site to. Would be overridden if branch in repo is configed.
 - **message**: Commit message. The default commit message is `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
 - **name** and **email**: User info for committing the change, overrides global config. This info is independent of git login.
