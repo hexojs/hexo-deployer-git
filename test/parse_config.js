@@ -123,35 +123,6 @@ describe('parse config', function() {
     }
   });
 
-  it('Structured single repo setting', function() {
-    parseConfig({
-      repo: {
-        url: 'https://coding.net/hexojs/hexojs.git',
-        branch: 'site'
-      }
-    })[0].branch.should.eql('site');
-  });
-
-  it('Structured multiple repo settings', function() {
-    const result = parseConfig({
-      repo: {
-        coding: {
-          url: 'https://coding.net/hexojs/hexojs.git',
-          branch: 'site',
-          token: 'plain_token'
-        },
-        github: {
-          url: 'https://github.com/hexojs/hexojs.github.io.git'
-        }
-      }
-    });
-
-    result.should.eql([
-      {url: 'https://plain_token@coding.net/hexojs/hexojs.git', branch: 'site'},
-      {url: 'https://github.com/hexojs/hexojs.github.io.git', branch: 'master'}
-    ]);
-  });
-
   it('single repo with plain text token', function() {
     // http
     parseConfig({
@@ -188,6 +159,44 @@ describe('parse config', function() {
         token: '$GIT_TOKEN'
       }
     })[0].url.should.eql('git://github.com/hexojs/hexojs.github.io.git');
+
+    delete process.env.GIT_TOKEN;
+  });
+
+  it('Structured single repo setting', function() {
+    parseConfig({
+      repo: {
+        url: 'https://coding.net/hexojs/hexojs.git',
+        branch: 'site'
+      }
+    })[0].branch.should.eql('site');
+  });
+
+  it('Structured multiple repo settings', function() {
+    process.env.GIT_TOKEN = 'env_token';
+    const result = parseConfig({
+      repo: {
+        coding: {
+          url: 'https://coding.net/hexojs/hexojs.git',
+          branch: 'site'
+        },
+        github: {
+          url: 'https://github.com/hexojs/hexojs.github.io.git',
+          token: 'plain_token'
+        },
+        other: {
+          url: 'https://example.com/path/to/repo.git',
+          token: '$GIT_TOKEN',
+          branch: 'page'
+        }
+      }
+    });
+
+    result.should.eql([
+      {url: 'https://coding.net/hexojs/hexojs.git', branch: 'site'},
+      {url: 'https://plain_token@github.com/hexojs/hexojs.github.io.git', branch: 'master'},
+      {url: 'https://env_token@example.com/path/to/repo.git', branch: 'page'}
+    ]);
 
     delete process.env.GIT_TOKEN;
   });
