@@ -10,7 +10,7 @@ const spawn = util.spawn;
 describe('deployer', () => {
   const baseDir = pathFn.join(__dirname, 'deployer_test');
   const publicDir = pathFn.join(baseDir, 'public');
-  const fakeRemote = pathFn.join(baseDir, '$JAVA_HOME/remote');
+  const fakeRemote = pathFn.join(baseDir, 'remote');
   const validateDir = pathFn.join(baseDir, 'validate');
   const extendDir = pathFn.join(baseDir, 'extend');
 
