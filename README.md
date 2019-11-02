@@ -54,7 +54,7 @@ deploy:
   ignore_pattern:
     [folder]: regexp  # or you could specify the ignore_pattern under a certain directory
 
-# keys inside repo do not matter, and can be omitted for single repo with token:
+#names of repo do not matter, and can be omitted if there is only one repo in your config:
 deploy:
   repo:
     url: <repository url>
