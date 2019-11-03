@@ -172,6 +172,25 @@ describe('parse config', function() {
     })[0].branch.should.eql('site');
   });
 
+  it('Single repo setting with name', function() {
+    parseConfig({
+      repo: {
+        my_repo: 'https://coding.net/hexojs/hexojs.git,site'
+      }
+    })[0].branch.should.eql('site');
+  });
+
+  it('Single structured repo setting with name', function() {
+    parseConfig({
+      repo: {
+        my_repo: {
+          url: 'https://coding.net/hexojs/hexojs.git',
+          branch: 'site'
+        }
+      }
+    })[0].branch.should.eql('site');
+  });
+
   it('Structured multiple repo settings', function() {
     process.env.GIT_TOKEN = 'env_token';
     const result = parseConfig({
