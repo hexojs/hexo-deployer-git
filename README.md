@@ -38,8 +38,12 @@ deploy:
   type: git
   message: [message]
   repo:
-    github: <repository url>,[branch]
-    coding: <repository url>,[branch]
+  # both formats are acceptable
+    [repo host name]: <repository url>[,branch]
+    [another repo]:
+      url: <repository url>
+      branch: [branch]
+      token: [$ENV_TOKEN]
   extend_dirs:
     - [extend directory]
     - [another extend directory]
@@ -49,10 +53,21 @@ deploy:
     [another extend directory]: false
   ignore_pattern:
     [folder]: regexp  # or you could specify the ignore_pattern under a certain directory
+
+#names of repo do not matter, and can be omitted if there is only one repo in your config:
+deploy:
+  repo:
+    url: <repository url>
+    token: [$ENV_TOKEN]
+  # ...your other configs
 ```
 
-- **repo**: Repository URL
-- **branch**: Git branch to deploy the static site to
+- **repo**: Repository settings, or plain url of your repo
+  - **REPO_NAME**: Name for each of your repo setting. This layer can be omitted for single repo config.
+    - **url**: Url of your repositury to pull from and push to.
+    - **branch**: Optional git branch to deploy the static site to.
+    - **token**: Optional plain-text personal access token to auth push action, or a string starting with `$` to read token from environment varable. [For details](#deploy-with-token).
+- **branch**: Git branch to deploy the static site to. Would be overridden if branch in repo is configed.
 - **message**: Commit message. The default commit message is `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
 - **name** and **email**: User info for committing the change, overrides global config. This info is independent of git login.
 - **extend_dirs**: Add some extensions directory to publish. e.g `demo`, `examples`
@@ -78,6 +93,15 @@ deploy:
       ignore_pattern:
           public: .
   ```
+
+### Deploy with token
+
+It might be dangerous to save your account info in repo url, or a private key in deployment environment like public CI server. You can authorize the push action of deployment in `repo.token` config.
+
+- To learn more about personal access token and how to generate it, follow the guide of [creating a personal access token in Github](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line) or consult your repo host.
+- To check how to save your token in environment secretly, follow the guide of [virtual environments for GitHub Actions](https://help.github.com/articles/virtual-environments-for-github-actions#environment-variables) or consult your ci server host.
+
+> Token is **only** effective in the repo with a http(s) url.
 
 ## How it works
 

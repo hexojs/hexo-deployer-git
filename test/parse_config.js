@@ -122,4 +122,129 @@ describe('parse config', function() {
       err.should.have.property('message', 'repo is required!');
     }
   });
+
+  it('single repo with plain text token', function() {
+    // http
+    parseConfig({
+      repo: {
+        url: 'http://github.com/hexojs/hexojs.github.io.git',
+        token: 'plain_text_token'
+      }
+    })[0].url.should.eql('http://plain_text_token@github.com/hexojs/hexojs.github.io.git');
+
+    // token config for git scheme should be ignored
+    parseConfig({
+      repo: {
+        url: 'git://github.com/hexojs/hexojs.github.io.git',
+        token: 'plain_text_token'
+      }
+    })[0].url.should.eql('git://github.com/hexojs/hexojs.github.io.git');
+  });
+
+  it('single repo with env var token', function() {
+    process.env.GIT_TOKEN = 'env_token';
+
+    // http
+    parseConfig({
+      repo: {
+        url: 'http://github.com/hexojs/hexojs.github.io.git',
+        token: '$GIT_TOKEN'
+      }
+    })[0].url.should.eql('http://env_token@github.com/hexojs/hexojs.github.io.git');
+
+    // token config for git scheme should be ignored
+    parseConfig({
+      repo: {
+        url: 'git://github.com/hexojs/hexojs.github.io.git',
+        token: '$GIT_TOKEN'
+      }
+    })[0].url.should.eql('git://github.com/hexojs/hexojs.github.io.git');
+
+    delete process.env.GIT_TOKEN;
+  });
+
+  it('Structured single repo setting', function() {
+    parseConfig({
+      repo: {
+        url: 'https://coding.net/hexojs/hexojs.git',
+        branch: 'site'
+      }
+    })[0].branch.should.eql('site');
+  });
+
+  it('Single repo setting with name', function() {
+    parseConfig({
+      repo: {
+        my_repo: 'https://coding.net/hexojs/hexojs.git,site'
+      }
+    })[0].branch.should.eql('site');
+  });
+
+  it('Single structured repo setting with name', function() {
+    parseConfig({
+      repo: {
+        my_repo: {
+          url: 'https://coding.net/hexojs/hexojs.git',
+          branch: 'site'
+        }
+      }
+    })[0].branch.should.eql('site');
+  });
+
+  it('Structured multiple repo settings', function() {
+    process.env.GIT_TOKEN = 'env_token';
+    const result = parseConfig({
+      repo: {
+        coding: {
+          url: 'https://coding.net/hexojs/hexojs.git',
+          branch: 'site'
+        },
+        github: {
+          url: 'https://github.com/hexojs/hexojs.github.io.git',
+          token: 'plain_token'
+        },
+        other: {
+          url: 'https://example.com/path/to/repo.git',
+          token: '$GIT_TOKEN',
+          branch: 'page'
+        }
+      }
+    });
+
+    result.should.eql([
+      {url: 'https://coding.net/hexojs/hexojs.git', branch: 'site'},
+      {url: 'https://plain_token@github.com/hexojs/hexojs.github.io.git', branch: 'master'},
+      {url: 'https://env_token@example.com/path/to/repo.git', branch: 'page'}
+    ]);
+
+    delete process.env.GIT_TOKEN;
+  });
+
+  it('fail to read env var token', function() {
+
+    // http
+    try {
+      parseConfig({
+        repo: {
+          url: 'http://github.com/hexojs/hexojs.github.io.git',
+          token: '$GIT_TOKEN'
+        }
+      });
+    } catch (err) {
+      err.should.have.property('message', 'Fail to read environment varable: $GIT_TOKEN, check your config!');
+    }
+  });
+
+  it('invalid url', function() {
+    try {
+      parseConfig({
+        repo: {
+          url: 'http:///hexojs/hexojs.github.io.git',
+          token: '$GIT_TOKEN'
+        }
+      });
+    } catch (err) {
+      err.should.have.property('message', 'Fail to parse your repo url, check your config!');
+    }
+  });
 });
