@@ -26,6 +26,7 @@ deploy:
   type: git
   repo: <repository url>
   branch: [branch]
+  token: ''
   message: [message]
   name: [git user]
   email: [git email]
@@ -56,7 +57,6 @@ deploy:
     [repo_name]:
       url: <repository url>
       branch: [branch]
-      token: ''
 ```
 
 - **repo**: Repository settings, or plain url of your repo
