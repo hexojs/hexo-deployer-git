@@ -68,7 +68,7 @@ deploy:
     - Defaults to `coding-pages` on Coding.net.
     - Otherwise defaults to `master`.
   - **token**: Optional token value to authenticate with the repo. Prefix with `$` to read token from environment variable (recommended). Repo must be a http(s) url. [More details](#deploy-with-token).
-  - **token_name** coding.net needs token name and token to authenticate. [More details](#deploy-with-token)
+  - **token_name**: Only valid for coding.net, coding.net needs token name and token to authenticate. [More details](#deploy-with-token)
   - **repo_name**: Unique name when deploying to multiple repositories.
     * Example:
     ``` yaml
