@@ -41,7 +41,7 @@
     "hexo-fs": "^2.0.0",
     "hexo-util": "^1.0.0",
     "moment": "^2.18.0",
-    "swig-templates": "^2.0.2"
+    "nunjucks": "^3.2.1"
   },
   "engines": {
     "node": ">=8.6.0"
