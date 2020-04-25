@@ -220,6 +220,24 @@ describe('parse config', function() {
     delete process.env.GIT_TOKEN;
   });
 
+  it('coding.net token with token_name', function() {
+    process.env.CODING_TOKEN = 'env_token';
+    parseConfig({
+      repo: {
+        coding: {
+          url: 'https://e.coding.net/hexojs/hexojs.git',
+          branch: 'site',
+          token: '$CODING_TOKEN',
+          token_name: 'coding_token_name'
+        }
+      }
+    })[0].should.eql(
+      {url: 'https://coding_token_name:env_token@e.coding.net/hexojs/hexojs.git', branch: 'site'}
+    );
+
+    delete process.env.CODING_TOKEN;
+  });
+
   it('fail to read env var token', function() {
 
     // http

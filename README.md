@@ -57,6 +57,8 @@ deploy:
     [repo_name]:
       url: <repository url>
       branch: [branch]
+      token: [token]
+      token_name: [token_name] # for coding.net
 ```
 
 - **repo**: Repository settings, or plain url of your repo
@@ -66,6 +68,7 @@ deploy:
     - Defaults to `coding-pages` on Coding.net.
     - Otherwise defaults to `master`.
   - **token**: Optional token value to authenticate with the repo. Prefix with `$` to read token from environment variable (recommended). Repo must be a http(s) url. [More details](#deploy-with-token).
+  - **token_name**: Only valid for coding.net, coding.net needs token name and token to authenticate. [More details](#deploy-with-token)
   - **repo_name**: Unique name when deploying to multiple repositories.
     * Example:
     ``` yaml
@@ -111,6 +114,7 @@ While this plugin can parse authentication token from the config, only use this 
 Additional guides:
 
 - Create a GitHub Personal Access Token. [[Link]](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)
+- Create a Coding Project Access Token. [[Link]](https://help.coding.net/docs/project/features/deploy-tokens.html)
 - Add authentication token to Travis CI. [[Link]](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings)
 
 ## How it works
