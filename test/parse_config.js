@@ -2,11 +2,11 @@
 
 var should = require('chai').should(); // eslint-disable-line
 
-describe('parse config', function() {
-  var parseConfig = require('../lib/parse_config');
+describe('parse config', () => {
+  const parseConfig = require('../lib/parse_config');
 
-  it('single repo, no branch', function() {
-    var result = parseConfig({
+  it('single repo, no branch', () => {
+    const result = parseConfig({
       repo: 'https://example.com/path/to/repo.git'
     });
 
@@ -15,8 +15,8 @@ describe('parse config', function() {
     ]);
   });
 
-  it('single repo, with branch', function() {
-    var result = parseConfig({
+  it('single repo, with branch', () => {
+    const result = parseConfig({
       repo: 'https://example.com/path/to/repo.git',
       branch: 'develop'
     });
@@ -26,8 +26,8 @@ describe('parse config', function() {
     ]);
   });
 
-  it('single repo, branch after url', function() {
-    var result = parseConfig({
+  it('single repo, branch after url', () => {
+    const result = parseConfig({
       repo: 'https://example.com/path/to/repo.git,develop'
     });
 
@@ -36,8 +36,8 @@ describe('parse config', function() {
     ]);
   });
 
-  it('multiple repo', function() {
-    var result = parseConfig({
+  it('multiple repo', () => {
+    const result = parseConfig({
       repo: {
         foo: 'https://example.com/path/to/repo.git',
         bar: 'https://example.com/path/to/repo2.git,custom'
@@ -50,7 +50,7 @@ describe('parse config', function() {
     ]);
   });
 
-  it('github repo, master branch', function() {
+  it('github repo, master branch', () => {
     // https
     parseConfig({
       repo: 'https://github.com/hexojs/hexojs.github.io.git'
@@ -67,7 +67,7 @@ describe('parse config', function() {
     })[0].branch.should.eql('master');
   });
 
-  it('github repo, gh-pages branch', function() {
+  it('github repo, gh-pages branch', () => {
     // https
     parseConfig({
       repo: 'https://github.com/hexojs/hexo.git'
@@ -84,14 +84,14 @@ describe('parse config', function() {
     })[0].branch.should.eql('gh-pages');
   });
 
-  it('github repo, custom branch', function() {
+  it('github repo, custom branch', () => {
     parseConfig({
       repo: 'https://github.com/hexojs/hexojs.github.io.git',
       branch: 'site'
     })[0].branch.should.eql('site');
   });
 
-  it('coding repo, coding-pages branch', function() {
+  it('coding repo, coding-pages branch', () => {
     // https
     parseConfig({
       repo: 'https://coding.net/hexojs/hexojs.git'
@@ -108,14 +108,14 @@ describe('parse config', function() {
     })[0].branch.should.eql('coding-pages');
   });
 
-  it('coding, custom branch', function() {
+  it('coding, custom branch', () => {
     parseConfig({
       repo: 'https://coding.net/hexojs/hexojs.git',
       branch: 'site'
     })[0].branch.should.eql('site');
   });
 
-  it('repo is required', function() {
+  it('repo is required', () => {
     try {
       parseConfig({});
     } catch (err) {
@@ -123,7 +123,7 @@ describe('parse config', function() {
     }
   });
 
-  it('single repo with plain text token', function() {
+  it('single repo with plain text token', () => {
     // http
     parseConfig({
       repo: {
@@ -141,7 +141,7 @@ describe('parse config', function() {
     })[0].url.should.eql('git://github.com/hexojs/hexojs.github.io.git');
   });
 
-  it('single repo with env var token', function() {
+  it('single repo with env var token', () => {
     process.env.GIT_TOKEN = 'env_token';
 
     // http
@@ -163,7 +163,7 @@ describe('parse config', function() {
     delete process.env.GIT_TOKEN;
   });
 
-  it('Structured single repo setting', function() {
+  it('Structured single repo setting', () => {
     parseConfig({
       repo: {
         url: 'https://coding.net/hexojs/hexojs.git',
@@ -172,7 +172,7 @@ describe('parse config', function() {
     })[0].branch.should.eql('site');
   });
 
-  it('Single repo setting with name', function() {
+  it('Single repo setting with name', () => {
     parseConfig({
       repo: {
         my_repo: 'https://coding.net/hexojs/hexojs.git,site'
@@ -180,7 +180,7 @@ describe('parse config', function() {
     })[0].branch.should.eql('site');
   });
 
-  it('Single structured repo setting with name', function() {
+  it('Single structured repo setting with name', () => {
     parseConfig({
       repo: {
         my_repo: {
@@ -191,7 +191,7 @@ describe('parse config', function() {
     })[0].branch.should.eql('site');
   });
 
-  it('Structured multiple repo settings', function() {
+  it('Structured multiple repo settings', () => {
     process.env.GIT_TOKEN = 'env_token';
     const result = parseConfig({
       repo: {
@@ -220,7 +220,7 @@ describe('parse config', function() {
     delete process.env.GIT_TOKEN;
   });
 
-  it('fail to read env var token', function() {
+  it('fail to read env var token', () => {
 
     // http
     try {
@@ -235,7 +235,7 @@ describe('parse config', function() {
     }
   });
 
-  it('invalid url', function() {
+  it('invalid url', () => {
     try {
       parseConfig({
         repo: {
