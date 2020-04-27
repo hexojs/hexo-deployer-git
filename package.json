@@ -39,7 +39,7 @@
     "bluebird": "^3.5.0",
     "chalk": "^4.0.0",
     "hexo-fs": "^2.0.0",
-    "hexo-util": "^1.0.0",
+    "hexo-util": "^2.0.0",
     "moment": "^2.18.0",
     "nunjucks": "^3.2.1"
   },
