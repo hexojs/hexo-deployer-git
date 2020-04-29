@@ -7,9 +7,9 @@ init:
 # Test against these versions of Node.js.
 environment:
   matrix:
-    - nodejs_version: "8"
     - nodejs_version: "10"
     - nodejs_version: "12"
+    - nodejs_version: "14"
 
 matrix:
   fast_finish: true
