@@ -38,7 +38,7 @@
   "dependencies": {
     "bluebird": "^3.5.0",
     "chalk": "^4.0.0",
-    "hexo-fs": "^2.0.0",
+    "hexo-fs": "^3.0.1",
     "hexo-util": "^2.1.0",
     "moment": "^2.18.0",
     "nunjucks": "^3.2.1"
