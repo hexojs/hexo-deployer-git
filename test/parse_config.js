@@ -11,7 +11,7 @@ describe('parse config', () => {
     });
 
     result.should.eql([
-      {url: 'https://example.com/path/to/repo.git', branch: 'master'}
+      {url: 'https://example.com/path/to/repo.git', branch: 'main'}
     ]);
   });
 
@@ -45,26 +45,26 @@ describe('parse config', () => {
     });
 
     result.should.eql([
-      {url: 'https://example.com/path/to/repo.git', branch: 'master'},
+      {url: 'https://example.com/path/to/repo.git', branch: 'main'},
       {url: 'https://example.com/path/to/repo2.git', branch: 'custom'}
     ]);
   });
 
-  it('github repo, master branch', () => {
+  it('github repo, main branch', () => {
     // https
     parseConfig({
       repo: 'https://github.com/hexojs/hexojs.github.io.git'
-    })[0].branch.should.eql('master');
+    })[0].branch.should.eql('main');
 
     // git
     parseConfig({
       repo: 'git://github.com/hexojs/hexojs.github.io.git'
-    })[0].branch.should.eql('master');
+    })[0].branch.should.eql('main');
 
     // ssh
     parseConfig({
       repo: 'git@github.com:hexojs/hexojs.github.io.git'
-    })[0].branch.should.eql('master');
+    })[0].branch.should.eql('main');
   });
 
   it('github repo, gh-pages branch', () => {

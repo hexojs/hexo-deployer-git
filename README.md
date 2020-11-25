@@ -64,7 +64,7 @@ deploy:
   - **branch**: Optional git branch to deploy the static site to.
     - Defaults to `gh-pages` on GitHub.
     - Defaults to `coding-pages` on Coding.net.
-    - Otherwise defaults to `master`.
+    - Otherwise defaults to `main`.
   - **token**: Optional token value to authenticate with the repo. Prefix with `$` to read token from environment variable (recommended). Repo must be a http(s) url. [More details](#deploy-with-token).
   - **repo_name**: Unique name when deploying to multiple repositories.
     * Example:
@@ -94,7 +94,7 @@ deploy:
   deploy:
     - type: git
       repo: git@github.com:<username>/<username>.github.io.git
-      branch: master
+      branch: main
     - type: git
       repo: git@github.com:<username>/<username>.github.io.git
       branch: src

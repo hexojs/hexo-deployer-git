@@ -46,7 +46,7 @@ describe('deployer', () => {
   });
 
   function validate(branch) {
-    branch = branch || 'master';
+    branch = branch || 'main';
 
     // Clone the remote repo
     return spawn('git', ['clone', fakeRemote, validateDir, '--branch', branch]).then(() => {
