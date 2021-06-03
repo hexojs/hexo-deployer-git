@@ -40,7 +40,7 @@
     "chalk": "^4.0.0",
     "hexo-fs": "^3.0.1",
     "hexo-util": "^2.1.0",
-    "moment": "^2.18.0",
+    "luxon": "^1.27.0",
     "nunjucks": "^3.2.1"
   },
   "engines": {
