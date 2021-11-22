@@ -30,7 +30,7 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^7.1.0",
+    "eslint": "^8.3.0",
     "eslint-config-hexo": "^4.1.0",
     "mocha": "^8.0.1",
     "nyc": "^15.0.0"
