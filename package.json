@@ -6,7 +6,7 @@
   "scripts": {
     "eslint": "eslint .",
     "test": "mocha test/index.js",
-    "test-cov": "nyc npm run test"
+    "test-cov": "nyc --reporter=lcovonly npm run test"
   },
   "directories": {
     "lib": "./lib"
@@ -23,27 +23,27 @@
     "deploy",
     "deployer"
   ],
-  "author": "Tommy Chen <tommy351@gmail.com> (http://zespia.tw)",
+  "author": "Tommy Chen <tommy351@gmail.com> (https://zespia.tw)",
   "maintainers": [
-    "Abner Chou <hi@abnerchou.me> (http://abnerchou.me)"
+    "Abner Chou <hi@abnerchou.me> (https://abnerchou.me)"
   ],
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^7.1.0",
-    "eslint-config-hexo": "^4.1.0",
-    "mocha": "^8.0.1",
-    "nyc": "^15.0.0"
+    "chai": "^4.3.4",
+    "eslint": "^8.6.0",
+    "eslint-config-hexo": "^5.0.0",
+    "mocha": "^8.4.0",
+    "nyc": "^15.1.0"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
-    "chalk": "^4.0.0",
-    "hexo-fs": "^3.0.1",
-    "hexo-util": "^2.1.0",
-    "moment": "^2.18.0",
-    "nunjucks": "^3.2.1"
+    "bluebird": "^3.7.2",
+    "chalk": "^4.1.2",
+    "hexo-fs": "^3.1.0",
+    "hexo-util": "^2.5.0",
+    "moment": "^2.29.1",
+    "nunjucks": "^3.2.3"
   },
   "engines": {
-    "node": ">=8.6.0"
+    "node": ">=12.13.0"
   }
 }
