@@ -77,7 +77,7 @@ deploy:
           branch: branch_name
     ```
 - **branch**: Git branch to deploy the static site to. Branch name specified in `repo:` takes priority.
-- **message**: Commit message. Defaults to `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
+- **message**: Commit message. Defaults to `Site updated: {{ now("yyyy-MM-dd HH:mm:ss") }}`.
 - **name** and **email**: User info for committing the change, overrides global config. This info is independent of git login.
 - **extend_dirs**: Additional directories to publish. e.g `demo`, `examples`
 - **ignore_hidden** (Boolean|Object): whether ignore hidden files to publish. GitHub requires the `.nojekyll` in root.
