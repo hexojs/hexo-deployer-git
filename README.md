@@ -1,9 +1,8 @@
 # hexo-deployer-git
 
-[![Build Status](https://travis-ci.org/hexojs/hexo-deployer-git.svg?branch=master)](https://travis-ci.org/hexojs/hexo-deployer-git)
+[![Build Status](https://github.com/hexojs/hexo-deployer-git/workflows/Tester/badge.svg)](https://github.com/hexojs/hexo-deployer-git/actions?query=workflow%3ATester)
 [![NPM version](https://badge.fury.io/js/hexo-deployer-git.svg)](https://www.npmjs.com/package/hexo-deployer-git)
 [![Coverage Status](https://img.shields.io/coveralls/hexojs/hexo-deployer-git.svg)](https://coveralls.io/r/hexojs/hexo-deployer-git?branch=master)
-[![Build status](https://ci.appveyor.com/api/projects/status/liqy4nib33ht70so/branch/master?svg=true)](https://ci.appveyor.com/project/tommy351/hexo-deployer-git/branch/master)
 
 Git deployer plugin for [Hexo].
 
@@ -78,7 +77,7 @@ deploy:
           branch: branch_name
     ```
 - **branch**: Git branch to deploy the static site to. Branch name specified in `repo:` takes priority.
-- **message**: Commit message. Defaults to `Site updated: {{ now('YYYY-MM-DD HH:mm:ss') }}`.
+- **message**: Commit message. Defaults to `Site updated: {{ now("yyyy-MM-dd HH:mm:ss") }}`.
 - **name** and **email**: User info for committing the change, overrides global config. This info is independent of git login.
 - **extend_dirs**: Additional directories to publish. e.g `demo`, `examples`
 - **ignore_hidden** (Boolean|Object): whether ignore hidden files to publish. GitHub requires the `.nojekyll` in root.
