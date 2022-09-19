@@ -127,10 +127,10 @@ describe('parse config', () => {
     // http
     parseConfig({
       repo: {
-        url: 'http://github.com/hexojs/hexojs.github.io.git',
+        url: 'https://github.com/hexojs/hexojs.github.io.git',
         token: 'plain_text_token'
       }
-    })[0].url.should.eql('http://plain_text_token@github.com/hexojs/hexojs.github.io.git');
+    })[0].url.should.eql('https://plain_text_token@github.com/hexojs/hexojs.github.io.git');
 
     // token config for git scheme should be ignored
     parseConfig({
@@ -147,10 +147,10 @@ describe('parse config', () => {
     // http
     parseConfig({
       repo: {
-        url: 'http://github.com/hexojs/hexojs.github.io.git',
+        url: 'https://github.com/hexojs/hexojs.github.io.git',
         token: '$GIT_TOKEN'
       }
-    })[0].url.should.eql('http://env_token@github.com/hexojs/hexojs.github.io.git');
+    })[0].url.should.eql('https://env_token@github.com/hexojs/hexojs.github.io.git');
 
     // token config for git scheme should be ignored
     parseConfig({
