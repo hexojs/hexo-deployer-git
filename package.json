@@ -6,7 +6,7 @@
   "scripts": {
     "eslint": "eslint .",
     "test": "mocha test/index.js",
-    "test-cov": "nyc --reporter=lcovonly npm run test"
+    "test-cov": "c8 --reporter=lcovonly npm run test"
   },
   "directories": {
     "lib": "./lib"
@@ -29,17 +29,17 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "chai": "^4.3.4",
-    "eslint": "^8.6.0",
+    "c8": "^7.12.0",
+    "chai": "^4.3.6",
+    "eslint": "^8.24.0",
     "eslint-config-hexo": "^5.0.0",
-    "mocha": "^8.4.0",
-    "nyc": "^15.1.0"
+    "mocha": "^10.0.0"
   },
   "dependencies": {
     "bluebird": "^3.7.2",
-    "hexo-fs": "^3.1.0",
-    "hexo-util": "^2.5.0",
-    "luxon": "^2.3.0",
+    "hexo-fs": "^4.0.0",
+    "hexo-util": "^2.7.0",
+    "luxon": "^3.0.4",
     "nunjucks": "^3.2.3",
     "picocolors": "^1.0.0"
   },
