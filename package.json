@@ -38,7 +38,7 @@
   "dependencies": {
     "bluebird": "^3.7.2",
     "hexo-fs": "^4.0.0",
-    "hexo-util": "^2.7.0",
+    "hexo-util": "^3.0.1",
     "luxon": "^3.0.4",
     "nunjucks": "^3.2.3",
     "picocolors": "^1.0.0"
