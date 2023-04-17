@@ -30,16 +30,16 @@
   "license": "MIT",
   "devDependencies": {
     "c8": "^7.12.0",
-    "chai": "^4.3.6",
-    "eslint": "^8.24.0",
+    "chai": "^4.3.7",
+    "eslint": "^8.33.0",
     "eslint-config-hexo": "^5.0.0",
-    "mocha": "^10.0.0"
+    "mocha": "^10.2.0"
   },
   "dependencies": {
     "bluebird": "^3.7.2",
-    "hexo-fs": "^4.0.0",
-    "hexo-util": "^2.7.0",
-    "luxon": "^3.0.4",
+    "hexo-fs": "^4.1.1",
+    "hexo-util": "^3.0.1",
+    "luxon": "^3.2.1",
     "nunjucks": "^3.2.3",
     "picocolors": "^1.0.0"
   },
