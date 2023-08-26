@@ -256,7 +256,7 @@ describe('parse config', () => {
           token: '$GIT_TOKEN'
         }
       });
-    } catch(err) {
+    } catch (err) {
       err.should.have.property('message', 'Fail to parse your repo url, check your config!');
     }
   });
