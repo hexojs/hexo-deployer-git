@@ -4,8 +4,10 @@ const should = require('chai').should(); // eslint-disable-line
 const pathFn = require('path');
 const util = require('hexo-util');
 const fs = require('hexo-fs');
+const { stub, assert: sinonAssert } = require('sinon');
 const Promise = require('bluebird');
 const spawn = util.spawn;
+const { underline } = require('picocolors');
 
 describe('deployer', () => {
   const baseDir = pathFn.join(__dirname, 'deployer_test');
@@ -243,5 +245,24 @@ describe('deployer', () => {
           statusItem.should.eql(false);
         });
       });
+  });
+
+  it('without repo and repository', () => {
+    fs.mkdirSync(validateDir);
+    const logStub = stub(console, 'log');
+    process.env.HEXO_DEPLOYER_REPO = '';
+    deployer({});
+    let help = '';
+    help += 'You have to configure the deployment settings in _config.yml first!\n\n';
+    help += 'Example:\n';
+    help += '  deploy:\n';
+    help += '    type: git\n';
+    help += '    repo: <repository url>\n';
+    help += '    branch: [branch]\n';
+    help += '    message: [message]\n\n';
+    help += '    extend_dirs: [extend directory]\n\n';
+    help += 'For more help, you can check the docs: ' + underline('https://hexo.io/docs/deployment.html');
+    sinonAssert.calledWithMatch(logStub, help);
+    logStub.restore();
   });
 });
