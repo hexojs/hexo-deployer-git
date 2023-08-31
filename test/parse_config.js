@@ -247,4 +247,17 @@ describe('parse config', () => {
       err.should.have.property('message', 'Fail to parse your repo url, check your config!');
     }
   });
+
+  it('invalid url - 2', () => {
+    try {
+      parseConfig({
+        repo: {
+          url: 'http://:/hexojs.github.io.git',
+          token: '$GIT_TOKEN'
+        }
+      });
+    } catch (err) {
+      err.should.have.property('message', 'Fail to parse your repo url, check your config!');
+    }
+  });
 });
