@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "master"
+  pull_request:
+
+env:
+  default_node_version: 14
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: ["14", "16", "18"]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js ${{ matrix.node-version }} and Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: npm
+          cache-dependency-path: "package.json"
+
+      - name: Install Dependencies
+        run: npm install
+      - name: git-config
+        run: git config --global user.email "you@example.com" && git config --global user.name "Your Name"
+      - name: Test
+        run: npm run test -- --no-parallel
+
+  coverage:
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js ${{env.default_node_version}} and Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{env.default_node_version}}
+          cache: npm
+          cache-dependency-path: "package.json"
+
+      - name: Install Dependencies
+        run: npm install
+      - name: git-config
+        run: git config --global user.email "you@example.com" && git config --global user.name "Your Name"
+      - name: Coverage
+        run: npm run test-cov
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.github_token }}
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js ${{env.default_node_version}} and Cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{env.default_node_version}}
+          cache: npm
+          cache-dependency-path: "package.json"
+
+      - name: Install Dependencies
+        run: npm install
+      - name: Lint
+        run: npm run eslint

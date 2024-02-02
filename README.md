@@ -1,12 +1,13 @@
 # hexo-deployer-git
 
-[![Build Status](https://github.com/hexojs/hexo-deployer-git/workflows/Tester/badge.svg)](https://github.com/hexojs/hexo-deployer-git/actions?query=workflow%3ATester)
+[![CI](https://github.com/hexojs/hexo-deployer-git/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/hexojs/hexo-deployer-git/actions/workflows/ci.yml)
 [![NPM version](https://badge.fury.io/js/hexo-deployer-git.svg)](https://www.npmjs.com/package/hexo-deployer-git)
-[![Coverage Status](https://img.shields.io/coveralls/hexojs/hexo-deployer-git.svg)](https://coveralls.io/r/hexojs/hexo-deployer-git?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/hexojs/hexo-deployer-git/badge.svg)](https://coveralls.io/github/hexojs/hexo-deployer-git)
 
 Git deployer plugin for [Hexo].
 
 ## Notice: Fatal HttpRequestException Error on pushing to GitHub?
+
 Update [Git for Windows](https://github.com/git-for-windows/git/releases) to the latest version. ([Details](https://github.com/Microsoft/Git-Credential-Manager-for-Windows#notice-experiencing-github-pushfetch-problems))
 
 ## Installation
@@ -119,6 +120,7 @@ If `.deploy_git` does not exist, a repo will initialized (`git init`).
 Otherwise the curent repo (with its commit history) will be used.
 
 Users can clone the deployed repo to `.deploy_git` to keep the commit history.
+
 ```
 git clone <gh-pages repo> .deploy_git
 ```
