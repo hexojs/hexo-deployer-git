@@ -113,6 +113,22 @@ Additional guides:
 - Create a GitHub Personal Access Token. [[Link]](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)
 - Add authentication token to Travis CI. [[Link]](https://docs.travis-ci.com/user/environment-variables/#defining-variables-in-repository-settings)
 
+## Custom Domain Issue with CNAME File
+
+If you are using a custom domain with GitHub Pages, you might have encountered an issue where your custom domain configuration gets lost after deploying updates to your site. This problem occurs due to the deletion of the `CNAME` file in the root of the deployed directory during the git commit and push process performed by the `hexo-deployer-git` plugin.
+
+GitHub requires the `CNAME` file to be present in your repository to associate your custom domain with your GitHub Pages site. When this file is missing, GitHub resets the custom domain setting, leading to the site being accessible only through the default `github.io` domain.
+
+### Solution
+
+To ensure your custom domain remains active with each deployment, you need to include the `CNAME` file in your blog's source files. Here's how you can do it:
+
+1. **Create a `CNAME` File:** In the root of your blog's source directory, create a file named `CNAME`. Inside this file, enter your custom domain name. For example, if your custom domain is `example.com`, the content of the `CNAME` file should be:
+   ```
+   example.com
+   ```
+2. **Deploy Your Site:** Use the `hexo-deployer-git` plugin to deploy your site as usual. Run `hexo g -d` command, the plugin will now include the `CNAME` file in the deployment, and your custom domain configuration will remain intact.
+
 ## How it works
 
 `hexo-deployer-git` works by generating the site in `.deploy_git` and *force pushing* to the repo(es) in config.
