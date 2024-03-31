@@ -60,7 +60,7 @@ deploy:
 ```
 
 - **repo**: Repository settings, or plain url of your repo
-  - **url**: Url of your repositury to pull from and push to.
+  - **url**: Url of your repositury to pull from and push to. If you've configured SSH key authentication for git, ensure you use the SSH protocol format (for example, `git@github.com:`) for your repository URL to avoid password prompts or access denial due to security policies.
   - **branch**: Optional git branch to deploy the static site to.
     - Defaults to `gh-pages` on GitHub.
     - Defaults to `coding-pages` on Coding.net.
