@@ -121,7 +121,7 @@ GitHub requires the `CNAME` file to be present in your repository to associate y
 
 ### Solution
 
-To ensure your custom domain remains active with each deployment, you need to include the `CNAME` file in your blog's source files. Here's how you can do it:
+To ensure your custom domain remains active with each deployment, you need to include the `CNAME` file in your blog's `source/` directory. Here's how you can do it:
 
 1. **Create a `CNAME` File:** In the root of your blog's source directory, create a file named `CNAME`. Inside this file, enter your custom domain name. For example, if your custom domain is `example.com`, the content of the `CNAME` file should be:
    ```
