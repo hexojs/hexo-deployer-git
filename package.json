@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "bluebird": "^3.7.2",
+    "hexo-deployer-git": "^4.0.0",
     "hexo-fs": "^4.1.1",
     "hexo-util": "^3.0.1",
     "luxon": "^3.2.1",
