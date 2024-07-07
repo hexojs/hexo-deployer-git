@@ -118,6 +118,30 @@ describe('deployer', () => {
       });
   });
 
+  it('extend dirs - relative path', () => {
+    const extendDirInput = '../extendAsset';
+    const extendDir = pathFn.join(baseDir, extendDirInput);
+    const extendDirName = pathFn.basename(extendDir);
+
+    return fs.writeFile(pathFn.join(extendDir, 'extR.txt'), 'relative')
+      .then(() => {
+        return deployer({
+          repo: fakeRemote,
+          extend_dirs: extendDirInput,
+          silent: true
+        });
+      }).then(() => {
+        return validate();
+      }).then(() => {
+        const extTxtFile = pathFn.join(validateDir, extendDirName, 'extR.txt');
+
+        return fs.readFile(extTxtFile);
+      }).then(content => {
+        content.should.eql('relative');
+        return fs.rmdir(extendDir);
+      });
+  });
+
   it('multi deployment', () => {
     return deployer({
       repo: {
