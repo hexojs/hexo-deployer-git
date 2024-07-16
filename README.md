@@ -108,6 +108,8 @@ deploy:
 
 While this plugin can parse authentication token from the config, only use this method if you are sure the config will not be committed, including to a private repo. A more secure approach is to add it to the CI as an environment variable, then simply add the name of the environment variable to this plugin's config (e.g. `$GITHUB_TOKEN`).
 
+Token format can be pure token like `this_is_token_string` or can be linke `username:password`` format.
+
 Additional guides:
 
 - Create a GitHub Personal Access Token. [[Link]](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line)
